@@ -32,6 +32,21 @@ public class ProductService implements ProductDao {
     }
 
     @Override
+    public Flux<Product> findAllByNameUpperCase() {
+        return productRepository
+                .findAll()
+                .map(product -> {
+                    product.setName(product.getName().toUpperCase());
+                    return product;
+                });
+    }
+
+    @Override
+    public Flux<Product> findAllByNameUpperCaseRepeat() {
+        return findAllByNameUpperCase().repeat(5);
+    }
+
+    @Override
     public Mono<Product> findById(String id) {
         return productRepository.findById(id);
     }

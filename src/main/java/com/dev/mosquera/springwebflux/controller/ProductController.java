@@ -27,6 +27,18 @@ public class ProductController {
         return productService.findAll();
     }
 
+    @GetMapping("find/all/uppercase")
+    @Operation(description = "Endpoint that allows the searching of all products with the name as uppercase")
+    public Flux<Product> findAllByNameUppercase() {
+        return productService.findAllByNameUpperCase();
+    }
+
+    @GetMapping("find/all/repeat")
+    @Operation(description = "Endpoint that allos the searching of all products repating")
+    public Flux<Product> findAllByNameRepeat() {
+        return findAllByNameRepeat();
+    }
+
     @GetMapping("/find/{id}")
     public Mono<ResponseEntity<Product>> findById(
             @Parameter(description = "Product's identification which is needed to get the right object")
@@ -50,7 +62,10 @@ public class ProductController {
         return productService.findById(product.getId()).flatMap(productFound -> {
             productFound.setName(product.getName());
             productFound.setPrice(product.getPrice());
-            return productService.save(productFound).map(ResponseEntity::ok).defaultIfEmpty(ResponseEntity.notFound().build());
+            productFound.setCreateAt(new Date());
+            return productService.save(productFound)
+                    .map(ResponseEntity::ok)
+                    .defaultIfEmpty(ResponseEntity.notFound().build());
         });
     }
 }
