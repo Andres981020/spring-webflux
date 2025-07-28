@@ -50,4 +50,9 @@ public class ProductService implements ProductDao {
     public Mono<Product> findById(String id) {
         return productRepository.findById(id);
     }
+
+    @Override
+    public Mono<Void> delete(Product p) {
+        return productRepository.delete(p);
+    }
 }

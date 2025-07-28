@@ -1,9 +1,12 @@
 package com.dev.mosquera.springwebflux.models;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.http.codec.multipart.FilePart;
 
 import java.util.Date;
 
@@ -15,11 +18,15 @@ public class Product {
     private String id;
 
     @Schema(description = "Product's name", example = "Televisor")
+    @NotEmpty
     private String name;
     @Schema(description = "Product's price", example = "1600000")
+    @NotNull
     private double price;
     @Schema(description = "Product's creation date", example = "2025-06-15T00:00:00")
     private Date createAt;
+    @Schema(description = "Photo of the product")
+    private String photo;
 
     public String getId() {
         return id;
@@ -51,6 +58,14 @@ public class Product {
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public Product() {

@@ -12,4 +12,6 @@ public interface ProductDao {
     Flux<Product> findAllByNameUpperCase();
     Flux<Product> findAllByNameUpperCaseRepeat();
     Mono<Product> findById(String id);
+
+    Mono<Void> delete(Product p);
 }
